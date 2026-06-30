@@ -125,7 +125,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-
+        {/*  */}
         {/* Right - dashboard mockup */}
         <div className="relative hidden lg:block">
           <div className="relative bg-surface rounded-md border border-border shadow-[0_32px_80px_rgba(108,92,231,0.12)] p-6 overflow-hidden">
