@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const benefits = [
   "Free 30-min strategy call",
@@ -25,12 +26,20 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-14 sm:py-20 lg:py-24 bg-white">
+    <section
+      id="contact"
+      className="relative py-14 sm:py-20 lg:py-24 bg-white overflow-hidden"
+    >
       <div id="demo" className="absolute -top-[72px]" />
-      <div className="max-w-300 mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left - pitch */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             <span className="inline-block text-xs font-semibold text-primary uppercase tracking-widest bg-primary-light px-3 py-1 rounded-full mb-4">
               Get Started
             </span>
@@ -134,10 +143,16 @@ export default function Contact() {
                 +91 (000) 000-0000
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right - form */}
-          <div className="bg-surface rounded-md border border-border p-8 shadow-[0_8px_40px_rgba(108,92,231,0.06)]">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="bg-surface rounded-md border border-border p-8 shadow-[0_8px_40px_rgba(108,92,231,0.06)]"
+          >
             {submitted ? (
               <div className="flex flex-col items-center justify-center text-center py-12">
                 <div className="w-16 h-16 rounded-full bg-teal/15 flex items-center justify-center mb-5">
@@ -255,7 +270,7 @@ export default function Contact() {
                 </p>
               </form>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
