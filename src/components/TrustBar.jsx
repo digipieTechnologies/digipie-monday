@@ -1,11 +1,18 @@
 const stats = [
-  { value: '50+', label: 'Businesses Transformed' },
-  { value: '98%', label: 'Client Satisfaction' },
-  { value: '5yrs', label: 'monday.com Partner' },
-  { value: '3x', label: 'Avg Productivity Gain' },
-]
+  { value: "50+", label: "Businesses Transformed" },
+  { value: "98%", label: "Client Satisfaction" },
+  { value: "1.5yrs", label: "monday.com Partner" },
+  { value: "3x", label: "Avg Productivity Gain" },
+];
 
-const logos = ['Acme Corp', 'Nexus Inc', 'Vertex Co', 'Orion Ltd', 'Pulse HQ', 'Stride Co']
+const logos = [
+  "Acme Corp",
+  "Nexus Inc",
+  "Vertex Co",
+  "Orion Ltd",
+  "Pulse HQ",
+  "Stride Co",
+];
 
 export default function TrustBar() {
   return (
@@ -34,11 +41,13 @@ export default function TrustBar() {
               key={name}
               className="h-10 w-full max-w-[120px] bg-border/60 rounded-sm flex items-center justify-center"
             >
-              <span className="text-[11px] font-bold text-muted tracking-wide">{name}</span>
+              <span className="text-[11px] font-bold text-muted tracking-wide">
+                {name}
+              </span>
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
