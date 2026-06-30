@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-primary:        #6C5CE7;
+  --color-primary-dark:   #4C3BC4;
+  --color-primary-light:  #EDE9FF;
+  --color-accent:         #FF6B35;
+  --color-accent-dark:    #E05520;
+  --color-accent-light:   #FFF3EE;
+  --color-accent-border:  #FFD5C2;
+  --color-teal:           #00C9A7;
+
+  /* Neutrals */
+  --color-dark:    #0D1B2A;
+  --color-body:    #4A5568;
+  --color-muted:   #8896A8;
+  --color-surface: #F7F8FF;
+  --color-border:  #E2E8F0;
+
+  /* Shadows */
+  --shadow-header:    0 1px 20px rgba(108, 92, 231, 0.06);
+  --shadow-cta:       0 2px 8px  rgba(108, 92, 231, 0.30);
+  --shadow-cta-hover: 0 4px 16px rgba(108, 92, 231, 0.40);
+
+  /* Border Radius */
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  10px;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@utility mask-gradient {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+
+@utility mask-vertical {
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
