@@ -27,7 +27,7 @@ export default function Header() {
         scrolled ? "border-border shadow-header" : "border-transparent",
       ].join(" ")}
     >
-      <div className="max-w-300 mx-auto h-full px-6 md:px-3 grid grid-cols-[auto_auto] lg:grid-cols-[auto_1fr_auto] items-center gap-10">
+      <div className="max-w-[1400px] mx-auto h-full px-6 md:px-3 grid grid-cols-[auto_auto] lg:grid-cols-[auto_1fr_auto] items-center gap-10">
         {/* Logo */}
         <Link
           to="/"

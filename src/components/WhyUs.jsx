@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const features = [
   {
     icon: (
@@ -164,13 +166,19 @@ const features = [
 export default function WhyUs() {
   return (
     <section id="about" className="py-14 sm:py-20 lg:py-24 bg-surface">
-      <div className="max-w-300 mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left - visual */}
-          <div className="relative order-2 lg:order-1">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="relative order-2 lg:order-1"
+          >
             {/* Main card */}
             <div className="bg-white rounded-md border border-border p-8 shadow-[0_20px_60px_rgba(108,92,231,0.08)]">
-              <div className="flex items-center gap-3 mb-8">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="flex gap-1.5">
                   <img
                     src="/digipie-logo.webp"
@@ -184,7 +192,19 @@ export default function WhyUs() {
               </div>
 
               {/* Process steps */}
-              <div className="space-y-4">
+              <motion.div
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  show: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.1 },
+                  },
+                }}
+                className="space-y-4"
+              >
                 {[
                   {
                     step: "01",
@@ -218,8 +238,12 @@ export default function WhyUs() {
                       "bg-gradient-to-r from-primary to-accent font-bold shadow-sm",
                   },
                 ].map((item) => (
-                  <div
+                  <motion.div
                     key={item.step}
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      show: { opacity: 1, y: 0 },
+                    }}
                     className="flex items-center gap-4 p-3 rounded-sm bg-surface border border-border"
                   >
                     <span className="text-xs font-bold text-muted w-5">
@@ -233,20 +257,20 @@ export default function WhyUs() {
                     >
                       {item.status}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
-
-            {/* Floating badge */}
-            {/* <div className="absolute -right-6 -top-6 bg-primary text-white rounded-md px-5 py-4 shadow-cta text-center">
-              <p className="text-3xl font-bold">5★</p>
-              <p className="text-[11px] font-medium opacity-80 mt-0.5">Rated Partner</p>
-            </div> */}
-          </div>
+          </motion.div>
 
           {/* Right - features */}
-          <div className="order-1 lg:order-2">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="order-1 lg:order-2"
+          >
             <span className="inline-block text-xs font-semibold text-primary uppercase tracking-widest bg-primary-light px-3 py-1 rounded-full mb-4">
               Why Digipie
             </span>
@@ -258,9 +282,28 @@ export default function WhyUs() {
               how your business operates.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-6">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.08 },
+                },
+              }}
+              className="grid sm:grid-cols-2 gap-6"
+            >
               {features.map((f) => (
-                <div key={f.title} className="flex gap-4">
+                <motion.div
+                  key={f.title}
+                  variants={{
+                    hidden: { opacity: 0, y: 15 },
+                    show: { opacity: 1, y: 0 },
+                  }}
+                  className="flex gap-4"
+                >
                   <div className="w-10 h-10 rounded-sm bg-primary-light text-primary flex items-center justify-center flex-shrink-0">
                     {f.icon}
                   </div>
@@ -272,10 +315,10 @@ export default function WhyUs() {
                       {f.desc}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
