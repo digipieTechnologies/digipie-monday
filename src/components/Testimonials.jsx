@@ -1,5 +1,42 @@
 import * as React from "react";
-import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useAnimationFrame,
+  animate,
+  useInView,
+} from "framer-motion";
+
+export function Counter({
+  from = 0,
+  to,
+  duration = 1.5,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+}) {
+  const nodeRef = React.useRef(null);
+  const isInView = useInView(nodeRef, { once: true, margin: "-100px" });
+
+  React.useEffect(() => {
+    if (!isInView) return;
+
+    const node = nodeRef.current;
+    if (!node) return;
+
+    const controls = animate(from, to, {
+      duration,
+      ease: "easeOut",
+      onUpdate(value) {
+        node.textContent = prefix + value.toFixed(decimals) + suffix;
+      },
+    });
+
+    return () => controls.stop();
+  }, [from, to, isInView, decimals, prefix, suffix, duration]);
+
+  return <span ref={nodeRef}>{prefix + from.toFixed(decimals) + suffix}</span>;
+}
 
 const testimonials = [
   {
@@ -90,28 +127,36 @@ export default function Testimonials() {
   }, []);
 
   useAnimationFrame((time, delta) => {
-    const speed = 35; // speed in pixels per second
+    const speed = 35; // pixels per second
 
-    // Column 1 (moving up)
+    // Column 1 (Top -> Bottom)
     if (hoveredCol !== "col1" && col1Ref.current) {
       const height = col1Ref.current.scrollHeight / 2;
+
       if (height > 0) {
-        let nextY = y1.get() - (speed * delta) / 1000;
-        if (nextY <= -height) {
-          nextY = 0;
+        let nextY = y1.get() + (speed * delta) / 1000;
+
+        // Reset when reached the end
+        if (nextY >= 0) {
+          nextY = -height;
         }
+
         y1.set(nextY);
       }
     }
 
-    // Column 2 (moving up)
+    // Column 2 (Bottom -> Top)
     if (hoveredCol !== "col2" && col2Ref.current) {
       const height = col2Ref.current.scrollHeight / 2;
+
       if (height > 0) {
         let nextY = y2.get() - (speed * delta) / 1000;
+
+        // Reset when reached the end
         if (nextY <= -height) {
           nextY = 0;
         }
+
         y2.set(nextY);
       }
     }
@@ -130,10 +175,16 @@ export default function Testimonials() {
 
   return (
     <section className="py-14 sm:py-20 lg:py-24 bg-surface overflow-hidden">
-      <div className="max-w-300 mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-4">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           {/* Left Column - Content */}
-          <div className="lg:col-span-5 flex flex-col items-start text-left">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 flex flex-col items-start text-left"
+          >
             <span className="inline-block text-xs font-semibold text-primary uppercase tracking-widest bg-primary-light px-3 py-1 rounded-full mb-4">
               Testimonials
             </span>
@@ -149,22 +200,34 @@ export default function Testimonials() {
             {/* Stats stacked nicely */}
             <div className="w-full grid grid-cols-3 gap-4 pt-8 border-t border-border">
               <div>
-                <p className="text-3xl font-bold text-dark">4.9/5</p>
+                <p className="text-3xl font-bold text-dark">
+                  <Counter from={0} to={4.9} decimals={1} suffix="/5" />
+                </p>
                 <p className="text-xs text-muted mt-1">Average rating</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-dark">50+</p>
+                <p className="text-3xl font-bold text-dark">
+                  <Counter from={0} to={50} suffix="+" />
+                </p>
                 <p className="text-xs text-muted mt-1">Happy clients</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-dark">100%</p>
+                <p className="text-3xl font-bold text-dark">
+                  <Counter from={0} to={100} suffix="%" />
+                </p>
                 <p className="text-xs text-muted mt-1">Would recommend</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column - Vertically Scrolling Testimonials */}
-          <div className="lg:col-span-7">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[600px] overflow-hidden mask-vertical py-4">
               {/* Column 1 */}
               <div className="overflow-hidden ">
@@ -238,7 +301,7 @@ export default function Testimonials() {
                 </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

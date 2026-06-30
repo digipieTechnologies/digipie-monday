@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const cases = [
   {
     tag: "Operations",
@@ -55,9 +57,15 @@ const cases = [
 export default function CaseStudies() {
   return (
     <section id="case-studies" className="py-14 sm:py-20 lg:py-24 bg-white">
-      <div className="max-w-300 mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-4">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-16"
+        >
           <span className="inline-block text-xs font-semibold text-primary uppercase tracking-widest bg-primary-light px-3 py-1 rounded-full mb-4">
             Case Studies
           </span>
@@ -68,13 +76,33 @@ export default function CaseStudies() {
             We don't just implement - we transform. Here's what that looks like
             in practice.
           </p>
-        </div>
+        </motion.div>
 
         {/* Cards */}
-        <div className="grid lg:grid-cols-3 gap-7">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15 },
+            },
+          }}
+          className="grid lg:grid-cols-3 gap-7"
+        >
           {cases.map((c) => (
-            <article
+            <motion.article
               key={c.company}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                },
+              }}
               className={`group relative flex flex-col p-7 rounded-md border bg-white transition-all duration-300 hover:shadow-[0_12px_40px_rgba(108,92,231,0.1)] ${c.accent}`}
             >
               {/* Tag */}
@@ -126,34 +154,9 @@ export default function CaseStudies() {
                   </div>
                 ))}
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
-
-        {/* CTA row */}
-        {/* <div className="text-center mt-12">
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:underline"
-          >
-            Want results like these? Let's talk
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M3 7h8M8 4l3 3-3 3"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </a>
-        </div> */}
+        </motion.div>
       </div>
     </section>
   );
