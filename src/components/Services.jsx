@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const services = [
   {
     icon: (
@@ -197,9 +199,15 @@ export default function Services() {
       className="relative py-14 sm:py-20 lg:py-24 bg-white"
     >
       <div id="solutions" className="absolute -top-[72px]" />
-      <div className="max-w-300 mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-4">
         {/* Section header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-16"
+        >
           <span className="inline-block text-xs font-semibold text-primary uppercase tracking-widest bg-primary-light px-3 py-1 rounded-full mb-4">
             What We Do
           </span>
@@ -210,13 +218,33 @@ export default function Services() {
             From initial setup to long-term growth, we cover every stage of your
             monday.com journey.
           </p>
-        </div>
+        </motion.div>
 
         {/* Cards grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 },
+            },
+          }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {services.map((s) => (
-            <div
+            <motion.div
               key={s.title}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                },
+              }}
               className="group relative p-7 rounded-md border border-border bg-white hover:border-primary/30 hover:shadow-[0_8px_40px_rgba(108,92,231,0.08)] transition-all duration-300 cursor-pointer"
             >
               {/* Icon */}
@@ -278,9 +306,9 @@ export default function Services() {
                   />
                 </svg>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
