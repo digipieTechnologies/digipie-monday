@@ -61,7 +61,7 @@ export default function Footer() {
   return (
     <footer className="bg-dark text-white">
       {/* Main footer body */}
-      <div className="max-w-300 mx-auto px-4 pt-16 pb-12">
+      <div className="max-w-[1400px] mx-auto px-4 pt-16 pb-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-12 items-start">
           {/* Brand block */}
           <div className="max-w-sm">
@@ -219,7 +219,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-300 mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="max-w-[1400px] mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-white/30">
             © {new Date().getFullYear()} Digipie Technologies. All rights
             reserved.
